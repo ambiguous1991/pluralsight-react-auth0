@@ -16,12 +16,12 @@ function App({ history }) {
         <Route
           path="/"
           exact
-          render={props => <Home auth={auth} {...[props]} />}
+          render={props => <Home auth={auth} {...props} />}
         />
         <Route path="/profile" exact component={Profile} />
         <Route
           path="/callback"
-          render={props => <Callback auth={auth} {...[props]} />}
+          render={props => <Callback auth={auth} {...props} />}
         />
       </div>
     </>

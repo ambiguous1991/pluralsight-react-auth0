@@ -3,8 +3,7 @@ import React, { Component } from "react";
 class Callback extends Component {
   componentDidMount() {
     //Handle auth if expected values in url
-    console.log(this.props.location.hash);
-    if (/access_token|id_token|error/.test(this.props.location)) {
+    if (/access_token|id_token|error/.test(this.props.location.hash)) {
       this.props.auth.handleAuthentication();
     } else {
       throw new Error("Invalid callback URL");
