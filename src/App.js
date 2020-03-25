@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import Home from "./Home";
 import Profile from "./Profile";
@@ -13,8 +13,17 @@ import AuthContext from "./AuthContext";
 
 function App({ history }) {
   const auth = new Auth(history);
+  const [isTokenRenewed, setIsTokenRenewed] = useState(false);
 
-  return (
+  useEffect(() => {
+    if (!isTokenRenewed) {
+      auth.renewToken(() => {
+        setIsTokenRenewed(true);
+      });
+    }
+  }, [isTokenRenewed, auth]);
+
+  const content = (
     <AuthContext.Provider value={auth}>
       <Nav />
       <div className="body">
@@ -38,6 +47,8 @@ function App({ history }) {
       </div>
     </AuthContext.Provider>
   );
+
+  return isTokenRenewed ? content : "Loading...";
 }
 
 export default App;
