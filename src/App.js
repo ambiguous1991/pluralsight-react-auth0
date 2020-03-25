@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import Nav from "./Nav";
 import Auth from "./auth/Auth";
 import Callback from "./Callback";
+import Public from "./Public";
 
 function App({ history }) {
   const auth = new Auth(history);
@@ -32,6 +33,7 @@ function App({ history }) {
           path="/callback"
           render={props => <Callback auth={auth} {...props} />}
         />
+        <Route path="/public" component={Public} />
       </div>
     </>
   );
