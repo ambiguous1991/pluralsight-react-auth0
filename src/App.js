@@ -9,34 +9,34 @@ import Public from "./Public";
 import Private from "./Private";
 import Courses from "./Courses";
 import PrivateRoute from "./PrivateRoute";
+import AuthContext from "./AuthContext";
 
 function App({ history }) {
   const auth = new Auth(history);
 
   return (
-    <>
-      <Nav auth={auth} />
+    <AuthContext.Provider value={auth}>
+      <Nav />
       <div className="body">
         <Route
           path="/"
           exact
           render={props => <Home auth={auth} {...props} />}
         />
-        <PrivateRoute auth={auth} path="/profile" component={Profile} />
+        <PrivateRoute path="/profile" component={Profile} />
         <Route
           path="/callback"
           render={props => <Callback auth={auth} {...props} />}
         />
         <Route path="/public" component={Public} />
-        <PrivateRoute auth={auth} path="/private" component={Private} />
+        <PrivateRoute path="/private" component={Private} />
         <PrivateRoute
-          auth={auth}
           path="/courses"
           component={Courses}
           scopes={["read:courses"]}
         />
       </div>
-    </>
+    </AuthContext.Provider>
   );
 }
 
